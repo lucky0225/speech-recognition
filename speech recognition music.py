@@ -36,58 +36,58 @@ def play_audio(filename):
 r = sr.Recognizer()
 
 def initSpeech():
-    # while True:
+    while True:
 
-    print("Starting...")
-    play_audio("./upset-sound-tone.wav")
-    # defining microphone as source to listen to
-    with sr.Microphone() as source:
-        print("Choose from the following:\n - music\n - ")
-        audio = r.listen(source)
-    play_audio("./rocket2.wav")
-    recorded_audio = ""
-    try:
-        # can use different engines to recognize speech
-        # english only
-        recorded_audio = r.recognize_google(audio)
-    except:
-        print("No audio recognized, please repeat")
-
-    audio_signal = recorded_audio.split(" ")
-    # if successful 
-    print("Recorded: ", recorded_audio)
-    print("Signal", audio_signal)
-
-    # testing for "music"
-    if "music" in audio_signal:
-        play_audio("./violin.wav")
-        print("Which music do you want to listen to? You can choose between:\n - rock\n - pop\n - classic")
+        print("Starting...")
+        play_audio("./upset-sound-tone.wav")
+        # defining microphone as source to listen to
         with sr.Microphone() as source:
-            audio =r.listen(source)
-            recorded_audio = ""
+            print("Choose from the following:\n - music\n - stop")
+            audio = r.listen(source)
+        play_audio("./rocket2.wav")
+        recorded_audio = ""
         try:
+            # can use different engines to recognize speech
+            # english only
             recorded_audio = r.recognize_google(audio)
         except:
             print("No audio recognized, please repeat")
 
         audio_signal = recorded_audio.split(" ")
+        # if successful 
         print("Recorded: ", recorded_audio)
         print("Signal", audio_signal)
 
-        if "rock" in audio_signal:
-            play_audio("./Rammstein.wav")
-        elif "pop" in audio_signal:
-            play_audio("./Sinatra.wav")
-        elif "classic" in audio_signal:
-            play_audio("./Mozart.wav")
-        else:
-            print("Could not recognize music")
+        # testing for "music"
+        if "music" in audio_signal:
+            play_audio("./violin.wav")
+            print("Which music do you want to listen to? You can choose between:\n - rock\n - pop\n - classic")
+            with sr.Microphone() as source:
+                audio =r.listen(source)
+                recorded_audio = ""
+            try:
+                recorded_audio = r.recognize_google(audio)
+            except:
+                print("No audio recognized, please repeat")
 
+            audio_signal = recorded_audio.split(" ")
+            print("Recorded: ", recorded_audio)
+            print("Signal", audio_signal)
 
-
-
-
+            if "rock" in audio_signal:
+                play_audio("./Rammstein.wav")
+            elif "pop" in audio_signal:
+                play_audio("./Sinatra.wav")
+            elif "classic" in audio_signal:
+                play_audio("./Mozart.wav")
+            else:
+                print("Could not recognize music")
         
+        if "stop" in audio_signal:
+            print("Program stops")
+            exit()
+
+
 
 print(initSpeech())
 
